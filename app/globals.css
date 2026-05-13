@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --charcoal: #111111;
+  --charcoal-elevated: #1F2126;
+  --charcoal-elevated-2: #2A2D33;
+  --graphite: #4A4F57;
+  --gold: #FFC10A;
+  --gold-hover: #FFD24A;
+  --gold-link: #C99700;
+  --off-white: #F5F6F8;
+  --off-white-lightest: #FAFAFB;
+  --divider: #E8E9EB;
+  --ease-x: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { padding: 0; margin: 0; }
+html { scroll-behavior: smooth; background: var(--off-white); }
+body {
+  font-family: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  color: var(--charcoal);
+  background: var(--off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+::selection { background: var(--charcoal); color: var(--off-white); }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Custom cursor — hidden on touch */
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor: none; }
+  a, button, [data-cursor] { cursor: none; }
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow.gold { color: var(--gold-link); }
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* Mono data */
+.mono-data {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--ease-x), transform 1s var(--ease-x); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.06s; }
+.reveal.d2 { transition-delay: 0.12s; }
+.reveal.d3 { transition-delay: 0.18s; }
+.reveal.d4 { transition-delay: 0.24s; }
+.reveal.d5 { transition-delay: 0.30s; }
+.reveal.d6 { transition-delay: 0.36s; }
+
+/* Container utility */
+.wrap { max-width: 1440px; margin-inline: auto; padding-inline: 96px; }
+@media (max-width: 1024px) { .wrap { padding-inline: 48px; } }
+@media (max-width: 640px) { .wrap { padding-inline: 24px; } }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Section spacer */
+.section-pad { padding: 160px 0; }
+@media (max-width: 768px) { .section-pad { padding: 96px 0; } }
+
+/* Marquee */
+.marquee-track { will-change: transform; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Hover lift */
+.hover-lift { transition: transform .5s var(--ease-x), box-shadow .5s var(--ease-x); }
+.hover-lift:hover { transform: translateY(-12px); }
+
+/* Gold underline draw */
+.link-gold {
+  position: relative;
+  display: inline-block;
+}
+.link-gold::after {
+  content: ""; position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.4s var(--ease-x);
+}
+.link-gold:hover::after { width: 100%; }
+
+/* Custom focus ring */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* SVG icon animation states */
+.icon-anim-target { transition: transform 0.5s var(--ease-x); }
+.group:hover .icon-truck-body { transform: translateX(4px); }
+.group:hover .icon-truck-wheel { animation: spin 0.9s linear infinite; }
+.group:hover .icon-truck-x { animation: pulseGold 0.6s ease-in-out; }
+.group:hover .icon-container-door-l { transform: rotate(-15deg); transform-origin: 6px 50%; }
+.group:hover .icon-container-door-r { transform: rotate(15deg); transform-origin: 18px 50%; }
+.group:hover .icon-container-glow { opacity: 1; }
+.group:hover .icon-ship-hull { animation: rock 1.2s ease-in-out infinite; }
+.group:hover .icon-plane { transform: translate(2px, -2px) rotate(-3deg); }
+.group:hover .icon-crane-cable { transform: translateY(2px) scaleY(1.1); transform-origin: top; }
+.group:hover .icon-forklift-fork { transform: translateY(-3px); }
+.group:hover .icon-box-lid { transform: translateY(-4px); }
+.group:hover .icon-box-beam { opacity: 1; transform: translateY(-2px); }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes rock {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Sectors card 3D */
+.card-3d {
+  transition: transform 0.6s var(--ease-x), box-shadow 0.6s var(--ease-x);
+  transform-style: preserve-3d;
+}
+.card-3d:hover {
+  transform: translateY(-12px) translateZ(60px);
+}
+
+/* Footer mega wordmark - clip-path animated fill */
+.mega-wordmark-row {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(4px, 0.6vw, 10px);
+}
+.mega-wordmark-x {
+  height: clamp(18px, 3.6vw, 50px);
+  width: auto;
+  color: #fff;
+  display: block;
+  flex-shrink: 0;
+}
+.mega-wordmark {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  font-size: clamp(16px, 3vw, 42px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: rgba(255, 193, 10, 0.18);
+  -webkit-font-smoothing: antialiased;
+}
+.mega-wordmark-fill {
+  position: absolute; inset: 0;
+  color: var(--gold);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.8s var(--ease-x);
+}
+.mega-wordmark.filled .mega-wordmark-fill { clip-path: inset(0 0 0 0); }
