@@ -147,7 +147,7 @@ export default function Operations() {
               src="/scene-workers.png"
               alt="X Group workers preparing a pallet"
               width={1353}
-              height={921}
+              height={898}
               speed={0.22}
               drift
               className="w-full"
