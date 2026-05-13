@@ -77,13 +77,23 @@ export default function Nav() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className="text-base capitalize"
+                  className="text-base capitalize text-charcoal"
                   onClick={() => setOpen(false)}
                 >
                   {id}
                 </a>
               </li>
             ))}
+            <li className="pt-3">
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="group inline-flex items-center gap-2.5 text-[14px] font-medium px-5 py-2.5 rounded-full bg-charcoal text-offwhite hover:bg-gold hover:text-charcoal transition-all duration-300 ease-x"
+              >
+                Start a conversation
+                <ArrowRightIcon size={14} />
+              </a>
+            </li>
           </ul>
         </div>
       )}

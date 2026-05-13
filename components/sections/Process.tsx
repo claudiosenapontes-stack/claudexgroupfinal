@@ -15,6 +15,14 @@ export default function Process() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const [truckWidth, setTruckWidth] = useState(460);
+
+  useEffect(() => {
+    const setW = () => setTruckWidth(window.innerWidth < 640 ? 260 : 460);
+    setW();
+    window.addEventListener("resize", setW);
+    return () => window.removeEventListener("resize", setW);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -115,19 +123,19 @@ export default function Process() {
                 </div>
 
                 {/* Editorial copy block — balanced position, not cramped against the progress bar */}
-                <div className="relative z-10 wrap grid md:grid-cols-2 items-end h-full pb-32 pt-40 gap-12">
-                  <div className="flex flex-col gap-6 max-w-xl">
+                <div className="relative z-10 wrap grid md:grid-cols-2 items-end h-full pb-20 sm:pb-32 pt-24 sm:pt-40 gap-6 md:gap-12">
+                  <div className="flex flex-col gap-4 sm:gap-6 max-w-xl">
                     <span className="mono-data text-gold">/ {p.num}</span>
-                    <h2 className="font-semibold text-[clamp(64px,8vw,140px)] leading-[0.94] tracking-[-0.035em]">
+                    <h2 className="font-semibold text-[clamp(44px,8vw,140px)] leading-[0.94] tracking-[-0.035em]">
                       {p.title}<span className="text-gold">.</span>
                     </h2>
                   </div>
                   <div className="flex md:justify-end">
                     <div className="max-w-sm">
-                      <div className="text-gold mb-6 inline-flex">
-                        <Icon size={48} />
+                      <div className="text-gold mb-4 sm:mb-6 inline-flex">
+                        <Icon size={36} className="sm:w-12 sm:h-12" />
                       </div>
-                      <p className="text-body-l font-light text-offwhite/70 leading-snug">
+                      <p className="text-[15px] sm:text-body-l font-light text-offwhite/70 leading-snug">
                         {p.line}
                       </p>
                     </div>
@@ -142,19 +150,19 @@ export default function Process() {
             The PNG has transparent space below the truck content; the element is positioned to
             account for that so the wheels visually land on the road line. */}
         <div
-          className="absolute bottom-[14rem] left-0 z-30 pointer-events-none"
+          className="absolute bottom-[10rem] sm:bottom-[14rem] left-0 z-30 pointer-events-none"
           style={{
-            transform: `translate3d(calc(${progress * 100}vw - ${progress * 500}px - 40px), 0, 0)`,
+            transform: `translate3d(calc(${progress * 100}vw - ${progress * (truckWidth + 40)}px - 24px), 0, 0)`,
             transition: "transform 80ms linear",
           }}
         >
-          <TruckIllustration width={460} />
+          <TruckIllustration width={truckWidth} />
         </div>
         {/* Faint road line — sits at the truck wheels height */}
-        <div className="absolute bottom-[20rem] left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent z-20 pointer-events-none" />
+        <div className="absolute bottom-[14rem] sm:bottom-[20rem] left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent z-20 pointer-events-none" />
 
         {/* Progress bar — sits on the road line, just below the wheels */}
-        <div className="absolute bottom-[20rem] left-0 right-0 z-20 wrap flex items-center gap-4">
+        <div className="absolute bottom-[14rem] sm:bottom-[20rem] left-0 right-0 z-20 wrap flex items-center gap-4">
           <span className="mono-data text-graphite">PROGRESS</span>
           <div className="relative flex-1 h-px bg-white/10">
             <div
