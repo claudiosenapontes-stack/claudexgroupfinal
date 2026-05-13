@@ -146,8 +146,8 @@ export default function Operations() {
             <ParallaxItem
               src="/scene-workers.png"
               alt="X Group workers preparing a pallet"
-              width={1353}
-              height={898}
+              width={1355}
+              height={945}
               speed={0.22}
               drift
               className="w-full"
