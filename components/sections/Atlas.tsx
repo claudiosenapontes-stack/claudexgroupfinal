@@ -14,25 +14,25 @@ type Node = {
   image: string;
 };
 
-// One unique photo per city — manufacturing, materials, finishes only.
-// No vehicles, no food, no sports. Indexed by city id below.
+// Per-city photos — RAW MATERIAL close-ups, not ambient/place shots.
+// Each photo reflects what that node SOURCES, framed as material/surface texture.
 const U = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80&auto=format&fit=crop`;
 const PHOTO = {
-  houston:      U("photo-1553413077-190dd305871c"),  // warehouse aisle
-  barranquilla: U("photo-1494412651409-8963ce7935a7"),  // port containers
+  houston:      U("photo-1605745341112-85968b19335b"),  // wrapped cargo crates (HQ outbound)
+  barranquilla: U("photo-1518709268805-4e9042af2176"),  // industrial — LATAM transit
   minasgerais:  U("photo-1615875605825-5eb9bb5d52ac"),  // marble slab close-up
-  europe:       U("photo-1538688525198-9b88f6f53126"),  // crafted furniture
-  istanbul:     U("photo-1497366216548-37526070297c"),  // glass facade
-  india:        U("photo-1558769132-cb1aea458c5e"),     // textile rolls
-  thailand:     U("photo-1517816743773-6e0fd518b4a6"),  // architectural finishes
-  hanoi:        U("photo-1581094794329-c8112a89af12"),  // craft / woodwork
-  hcm:          U("photo-1513506003901-1e6a229e2d15"),  // pendant lighting
-  foshan:       U("photo-1605745341112-85968b19335b"),  // crates / packaged cargo
-  guangzhou:    U("photo-1607082348824-0a96f2a4b9da"),  // factory floor
-  shenzhen:     U("photo-1581092335397-9583eb92d232"),  // hardware / fixtures
-  shanghai:     U("photo-1518709268805-4e9042af2176"),  // industrial plant
-  qingdao:      U("photo-1565043666747-69f6646db940"),  // steel / machinery
-  hebei:        U("photo-1503387762-592deb58ef4e"),     // steel structure
+  europe:       U("photo-1581094794329-c8112a89af12"),  // craft / woodwork detail
+  istanbul:     U("photo-1615875605825-5eb9bb5d52ac"),  // marble close-up (Istanbul stone)
+  india:        U("photo-1558769132-cb1aea458c5e"),     // textile / fabric
+  thailand:     U("photo-1517816743773-6e0fd518b4a6"),  // raw finishes / surface
+  hanoi:        U("photo-1538688525198-9b88f6f53126"),  // furniture detail
+  hcm:          U("photo-1513506003901-1e6a229e2d15"),  // lighting components
+  foshan:       U("photo-1607082348824-0a96f2a4b9da"),  // ceramic / tile production
+  guangzhou:    U("photo-1565043666747-69f6646db940"),  // CNC / machined metal
+  shenzhen:     U("photo-1581092335397-9583eb92d232"),  // hardware / fixtures laid out
+  shanghai:     U("photo-1565043666747-69f6646db940"),  // CNC tooling (industrial)
+  qingdao:      U("photo-1503387762-592deb58ef4e"),     // steel beams / structure
+  hebei:        U("photo-1497366216548-37526070297c"),  // glass panels
 };
 
 const NODES: Node[] = [

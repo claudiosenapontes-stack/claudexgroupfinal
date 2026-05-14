@@ -142,8 +142,8 @@ export default function Contact() {
             <div className="flex items-center justify-between gap-8 pb-5 border-b border-white/10">
               <span className="mono-data text-graphite text-[12px] uppercase tracking-[0.22em]">Phone</span>
               <a
-                href="#contact"
-                aria-label="Contact form — phone available on request"
+                href="tel:+13399277803"
+                aria-label="Call X Group"
                 className="text-gold hover:text-offwhite transition-colors inline-flex items-center"
               >
                 <PhoneIcon size={26} />
