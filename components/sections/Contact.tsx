@@ -18,18 +18,10 @@ export default function Contact() {
     }
     setStatus("sending");
     try {
-      const res = await fetch("https://formsubmit.co/ajax/claudio.senapontes@gmail.com", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          company: form.company,
-          email: form.email,
-          message: form.message,
-          _subject: `X Group — new sourcing request from ${form.name}`,
-          _template: "box",
-          _captcha: "false",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
       if (res.ok) {
         setStatus("sent");
