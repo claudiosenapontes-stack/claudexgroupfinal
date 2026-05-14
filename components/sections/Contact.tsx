@@ -1,8 +1,47 @@
 "use client";
 
+import { useState } from "react";
 import { TruckIcon, ArrowRightIcon, PhoneIcon } from "../icons/Icons";
 
+type Status = "idle" | "sending" | "sent" | "error";
+
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", company: "", email: "", message: "" });
+  const [status, setStatus] = useState<Status>("idle");
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    if (!form.name.trim() || !form.email.trim()) {
+      setStatus("error");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/claudio.senapontes@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          message: form.message,
+          _subject: `X Group — new sourcing request from ${form.name}`,
+          _template: "box",
+          _captcha: "false",
+        }),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setForm({ name: "", company: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section id="contact" className="grid md:grid-cols-2 min-h-[80vh]">
       {/* Left — form */}
@@ -14,17 +53,21 @@ export default function Contact() {
             <span className="text-graphite">the world</span><span className="text-gold">.</span>
           </h2>
 
-          <form className="mt-12 flex flex-col gap-5 reveal d2" onSubmit={(e) => e.preventDefault()}>
-            {[
-              { id: "name",    label: "Name",    type: "text" },
-              { id: "company", label: "Company", type: "text" },
-              { id: "email",   label: "Email",   type: "email" },
-            ].map((f) => (
+          <form className="mt-12 flex flex-col gap-5 reveal d2" onSubmit={onSubmit}>
+            {([
+              { id: "name",    label: "Name",    type: "text",  required: true,  key: "name" as const },
+              { id: "company", label: "Company", type: "text",  required: false, key: "company" as const },
+              { id: "email",   label: "Email",   type: "email", required: true,  key: "email" as const },
+            ]).map((f) => (
               <div key={f.id} className="flex flex-col gap-1.5">
                 <label htmlFor={f.id} className="mono-data text-[11px] uppercase tracking-[0.2em] text-graphite">{f.label}</label>
                 <input
                   id={f.id}
+                  name={f.id}
                   type={f.type}
+                  required={f.required}
+                  value={form[f.key]}
+                  onChange={(e) => setForm((s) => ({ ...s, [f.key]: e.target.value }))}
                   className="bg-transparent border-0 border-b border-divider focus:border-gold py-2 text-charcoal placeholder:text-graphite/40 outline-none transition-colors"
                   placeholder={f.label}
                 />
@@ -34,7 +77,10 @@ export default function Contact() {
               <label htmlFor="msg" className="mono-data text-[11px] uppercase tracking-[0.2em] text-graphite">What can we source?</label>
               <textarea
                 id="msg"
+                name="message"
                 rows={3}
+                value={form.message}
+                onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
                 className="bg-transparent border-0 border-b border-divider focus:border-gold py-2 text-charcoal placeholder:text-graphite/40 outline-none transition-colors resize-none"
                 placeholder="Tell us what you need to move."
               />
@@ -42,14 +88,26 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group mt-6 inline-flex items-center gap-3 self-start px-7 py-3.5 rounded-full bg-charcoal text-offwhite text-[14px] font-medium hover:bg-gold hover:text-charcoal transition-all duration-300 ease-x"
+              disabled={status === "sending"}
+              className="group mt-6 inline-flex items-center gap-3 self-start px-7 py-3.5 rounded-full bg-charcoal text-offwhite text-[14px] font-medium hover:bg-gold hover:text-charcoal transition-all duration-300 ease-x disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span className="inline-block transition-transform duration-300 ease-x group-hover:translate-x-1">
                 <TruckIcon size={20} />
               </span>
-              Send a request
+              {status === "sending" ? "Sending…" : status === "sent" ? "Request sent" : "Send a request"}
               <ArrowRightIcon size={14} />
             </button>
+
+            {status === "sent" && (
+              <p className="mt-3 text-[13px] text-charcoal/80">
+                Thanks — your request is on its way. We&rsquo;ll be in touch shortly.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="mt-3 text-[13px] text-red-600">
+                Couldn&rsquo;t send. Please check your details or email <a className="underline" href="mailto:Info@xgroupsolutions.com">Info@xgroupsolutions.com</a> directly.
+              </p>
+            )}
           </form>
         </div>
       </div>
