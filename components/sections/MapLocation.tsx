@@ -55,20 +55,25 @@ export default function MapLocation() {
         </div>
       </div>
 
-      {/* Full-bleed B&W map */}
-      <div className="relative w-full aspect-[16/8] overflow-hidden border-t border-b border-white/8">
+      {/* Full-bleed B&W map — non-interactive so scroll passes through to the page */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[16/7] max-h-[60vh] overflow-hidden border-t border-b border-white/8">
         {/* Map iframe — OpenStreetMap, styled black & white via CSS filter */}
         <iframe
           src={embedSrc}
           title="X Group HQ — Boynton Beach, Florida"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="absolute inset-0 w-full h-full"
+          aria-hidden
+          tabIndex={-1}
+          className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
             border: 0,
             filter: "grayscale(100%) contrast(1.15) brightness(0.88) invert(1) hue-rotate(180deg)",
           }}
         />
+
+        {/* Transparent overlay forwards scroll/touch gestures to the page */}
+        <div aria-hidden className="absolute inset-0 z-[1]" style={{ touchAction: "pan-y" }} />
 
         {/* Subtle dark gradient overlay on the edges */}
         <div
