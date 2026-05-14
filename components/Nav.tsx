@@ -60,13 +60,14 @@ export default function Nav() {
         </div>
 
         <button
-          className="md:hidden p-2"
+          className="md:hidden inline-flex flex-col justify-center items-center min-w-[44px] min-h-[44px] -mr-2"
           aria-label="Menu"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="block w-5 h-px bg-charcoal mb-1.5"></span>
-          <span className="block w-5 h-px bg-charcoal mb-1.5"></span>
-          <span className="block w-5 h-px bg-charcoal"></span>
+          <span className={`block w-6 h-px bg-charcoal mb-1.5 transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}></span>
+          <span className={`block w-6 h-px bg-charcoal mb-1.5 transition-opacity ${open ? "opacity-0" : ""}`}></span>
+          <span className={`block w-6 h-px bg-charcoal transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}></span>
         </button>
       </div>
 

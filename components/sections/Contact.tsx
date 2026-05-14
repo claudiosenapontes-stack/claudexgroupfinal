@@ -136,9 +136,9 @@ export default function Contact() {
               <a
                 href="tel:+13399277803"
                 aria-label="Call X Group"
-                className="text-gold hover:text-offwhite transition-colors inline-flex items-center"
+                className="text-gold hover:text-offwhite transition-colors inline-flex items-center justify-center -m-2 p-2 min-w-[44px] min-h-[44px]"
               >
-                <PhoneIcon size={26} />
+                <PhoneIcon size={28} />
               </a>
             </div>
             <div className="flex items-baseline justify-between gap-8 pb-5 border-b border-white/10">
@@ -169,7 +169,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn — X Group Solutions"
-                  className="group inline-flex items-center text-gold hover:text-offwhite transition-colors"
+                  className="group inline-flex items-center justify-center -m-2 p-2 min-w-[44px] min-h-[44px] text-gold hover:text-offwhite transition-colors"
                 >
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:scale-110">
                     <rect x="3" y="3" width="18" height="18" rx="3" />
